@@ -19,14 +19,23 @@ body {
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
+.box:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.342),
+    0 6px 20px 0 rgba(74, 111, 165, 0.8);
+}
 .title {
   border-bottom: 2px solid #dbe9ee;
   text-align: center;
 }
 
-.brief {
-}
+/*.brief {
+}*/
+
 .image {
   width: 100%;
+}
+
+footer {
+  font-family: "Quicksand", sans-serif;
+  text-align: center;
 }
