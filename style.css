@@ -1,3 +1,13 @@
 #root {
-  color: red;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.box {
+  border: 3px solid black;
+  width: 25%;
+  height: auto;
+  margin: 2em;
 }
