@@ -1,13 +1,32 @@
+body {
+  margin: 0px;
+}
+
 #root {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  background-color: #dbe9ee;
+  font-family: "Quicksand", sans-serif;
 }
 
 .box {
-  border: 3px solid black;
-  width: 25%;
+  width: 20%;
   height: auto;
   margin: 2em;
+  padding: 2%;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.title {
+  border-bottom: 2px solid #dbe9ee;
+  text-align: center;
+}
+
+.brief {
+}
+.image {
+  width: 100%;
 }

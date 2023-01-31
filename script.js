@@ -24,16 +24,19 @@ function setup() {
       episode.number
     }`;
 
-    let title = document.createElement("h2");
-    title.innerHTML = `${episode.name} - `;
+    let title = document.createElement("h3");
+    title.innerHTML = `${episode.name.toUpperCase()} - `;
     title.appendChild(seasonNo);
     title.appendChild(episodeNo);
+    title.className = "title";
 
     let episodeBrief = document.createElement("p");
     episodeBrief.innerHTML = episode.summary;
+    episodeBrief.className = "brief";
 
     let episodeImg = document.createElement("img");
     episodeImg.src = episode.image.medium;
+    episodeImg.className = "image";
     //episodeImg.alt = episode.alt;
 
     containerDiv.appendChild(title);
