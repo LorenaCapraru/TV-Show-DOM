@@ -6,6 +6,7 @@ const resultsNo = document.createElement("p");
 
 function displaySearchResults(episodeList) {
   resultsNo.innerHTML = `Got ${episodeList.length} episode(s)`;
+  resultsNo.className = "resultsNo";
   searchContainer.appendChild(resultsNo);
 }
 
@@ -54,7 +55,10 @@ function createBoxEpisode(episode) {
 
 function createSearch() {
   let searchEpisodes = document.getElementById("searchEpisode");
+  searchEpisodes.className = "searchEpisodes";
+
   let listOfSearchedEp = [];
+
   searchEpisodes.addEventListener("input", () => {
     boxContainer.innerHTML = "";
     allEpisodes
@@ -72,6 +76,7 @@ function createSearch() {
         createBoxEpisode(ep);
         listOfSearchedEp.push(ep);
       });
+
     resultsNo.innerHTML = `Got ${boxContainer.childElementCount} episode(s)`;
 
     if (boxContainer.childElementCount === 0) {

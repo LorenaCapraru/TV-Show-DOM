@@ -15,7 +15,7 @@ body {
   width: 20%;
   height: auto;
   margin: 2em;
-  padding: 2%;
+  padding: 1% 2%;
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -28,9 +28,6 @@ body {
   text-align: center;
 }
 
-/*.brief {
-}*/
-
 .image {
   width: 100%;
 }
@@ -38,4 +35,26 @@ body {
 footer {
   font-family: "Quicksand", sans-serif;
   text-align: center;
+}
+
+#search {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 10%;
+  padding: 10px 0px;
+}
+
+.searchEpisodes {
+  border: none;
+  font-family: "Quicksand", sans-serif;
+  border-radius: 5px;
+  width: 20%;
+  height: 2.5rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.resultsNo {
+  color: grey;
 }
