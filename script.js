@@ -73,6 +73,12 @@ function createSearch() {
         listOfSearchedEp.push(ep);
       });
     resultsNo.innerHTML = `Got ${boxContainer.childElementCount} episode(s)`;
+
+    if (boxContainer.childElementCount === 0) {
+      let noFoundElement = document.createElement("h1");
+      noFoundElement.innerHTML = "No matching results.";
+      boxContainer.appendChild(noFoundElement);
+    }
   });
 }
 
