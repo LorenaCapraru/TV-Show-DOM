@@ -16,6 +16,7 @@ function setup() {
     createBoxEpisode(episode);
   }
   createSearch();
+  createDropDown(allEpisodes);
 }
 
 function createBoxEpisode(episode) {
@@ -87,4 +88,16 @@ function createSearch() {
   });
 }
 
+function createDropDown(allEpisodes) {
+  let dropDown = document.querySelector("select");
+  for (let episode of allEpisodes) {
+    let option = document.createElement("option");
+    option.innerHTML = `S${Number(episode.season) > 10 ? 1 : 0}${
+      episode.season
+    }E${Number(episode.number) > 10 ? 1 : 0}${episode.number} - ${
+      episode.name
+    }`;
+    dropDown.appendChild(option);
+  }
+}
 window.onload = setup;
