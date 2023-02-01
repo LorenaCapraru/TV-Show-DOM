@@ -1,14 +1,14 @@
 body {
   margin: 0px;
+  background-color: #dbe9ee;
+  font-family: "Quicksand", sans-serif;
 }
 
-#root {
+#boxContainer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  background-color: #dbe9ee;
-  font-family: "Quicksand", sans-serif;
 }
 
 .box {
@@ -39,4 +39,3 @@ footer {
   font-family: "Quicksand", sans-serif;
   text-align: center;
 }
-
