@@ -3,6 +3,7 @@ const boxContainer = document.getElementById("boxContainer");
 const allEpisodes = getAllEpisodes();
 let searchContainer = document.getElementById("search");
 const resultsNo = document.createElement("p");
+let dropDown = document.querySelector("select");
 
 function displaySearchResults(episodeList) {
   resultsNo.innerHTML = `Got ${episodeList.length} episode(s)`;
@@ -89,7 +90,6 @@ function createSearch() {
 }
 
 function createDropDown(allEpisodes) {
-  let dropDown = document.querySelector("select");
   for (let episode of allEpisodes) {
     let option = document.createElement("option");
     option.innerHTML = `S${Number(episode.season) > 10 ? 1 : 0}${
@@ -99,5 +99,11 @@ function createDropDown(allEpisodes) {
     }`;
     dropDown.appendChild(option);
   }
+
+  /*dropDown.addEventListener("change", () => {
+    if (episode.name === option.value) boxContainer.innerHTML = "";
+    createBoxEpisode(episode);
+  });*/
 }
+
 window.onload = setup;
