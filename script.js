@@ -13,9 +13,9 @@ function displaySearchResults(episodeList) {
 
 function setup() {
   displaySearchResults(allEpisodes);
-  for (let episode of allEpisodes) {
-    createBoxEpisode(episode);
-  }
+
+  for (let episode of allEpisodes) createBoxEpisode(episode);
+
   createSearch();
   createDropDown(allEpisodes);
 }
@@ -97,13 +97,16 @@ function createDropDown(allEpisodes) {
     }E${Number(episode.number) > 10 ? 1 : 0}${episode.number} - ${
       episode.name
     }`;
+    option.value = episode.name;
     dropDown.appendChild(option);
   }
 
-  /*dropDown.addEventListener("change", () => {
-    if (episode.name === option.value) boxContainer.innerHTML = "";
-    createBoxEpisode(episode);
-  });*/
+  dropDown.addEventListener("change", () => {
+    boxContainer.innerHTML = "";
+    for (let episode of allEpisodes)
+      if (dropDown.options[dropDown.selectedIndex].text.includes(episode.name))
+        createBoxEpisode(episode);
+  });
 }
 
 window.onload = setup;
