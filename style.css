@@ -44,6 +44,11 @@ header h1 {
 footer {
   font-family: "Quicksand", sans-serif;
   text-align: center;
+  background-color: white;
+}
+footer p {
+  margin: 0px;
+  padding: 20px;
 }
 
 #search {
