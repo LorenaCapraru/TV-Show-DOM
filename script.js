@@ -13,9 +13,7 @@ function displaySearchResults(episodeList) {
 
 function setup() {
   displaySearchResults(allEpisodes);
-
-  for (let episode of allEpisodes) createBoxEpisode(episode);
-
+  allEpisodes.forEach((episode) => createBoxEpisode(episode));
   createSearch();
   createDropDown(allEpisodes);
 }
@@ -48,7 +46,7 @@ function createBoxEpisode(episode) {
   let episodeImg = document.createElement("img");
   episodeImg.src = episode.image.medium;
   episodeImg.className = "image";
-  //episodeImg.alt = episode.alt;
+  episodeImg.alt = episode.name;
 
   containerDiv.appendChild(title);
   containerDiv.appendChild(episodeImg);
@@ -90,6 +88,11 @@ function createSearch() {
 }
 
 function createDropDown(allEpisodes) {
+  let firstOption = document.createElement("option");
+  firstOption.innerText = "All Episodes";
+  firstOption.value = "All Episodes";
+  dropDown.appendChild(firstOption);
+
   for (let episode of allEpisodes) {
     let option = document.createElement("option");
     option.innerHTML = `S${Number(episode.season) > 10 ? 1 : 0}${
@@ -97,15 +100,21 @@ function createDropDown(allEpisodes) {
     }E${Number(episode.number) > 10 ? 1 : 0}${episode.number} - ${
       episode.name
     }`;
-    option.value = episode.name;
     dropDown.appendChild(option);
   }
 
   dropDown.addEventListener("change", () => {
-    boxContainer.innerHTML = "";
+    if (dropDown.value === "All Episodes") {
+      boxContainer.innerHTML = "";
+      allEpisodes.forEach((episode) => createBoxEpisode(episode));
+    } else boxContainer.innerHTML = "";
     for (let episode of allEpisodes)
-      if (dropDown.options[dropDown.selectedIndex].text.includes(episode.name))
+      if (
+        dropDown.options[dropDown.selectedIndex].text.includes(episode.name)
+      ) {
         createBoxEpisode(episode);
+        resultsNo.innerHTML = `Got one episode(s)`;
+      }
   });
 }
 
