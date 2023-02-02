@@ -76,7 +76,11 @@ footer p {
 
 @media screen and (max-width: 900px) {
   .box {
-    width: 50%;
+    width: 30%;
+    font-size: 0.8em;
+  }
+  #boxContainer {
+    gap: 1%;
   }
 }
 
@@ -86,10 +90,11 @@ footer p {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+    align-content: space-around;
   }
 
   .box {
-    width: 80%;
+    width: 70%;
   }
 
   #search {
