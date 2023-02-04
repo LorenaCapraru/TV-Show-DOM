@@ -45,6 +45,8 @@ footer {
   font-family: "Quicksand", sans-serif;
   text-align: center;
   background-color: white;
+  bottom: 0px;
+  margin-bottom: 0px;
 }
 footer p {
   margin: 0px;
