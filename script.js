@@ -1,6 +1,5 @@
-//You can edit ALL of the code here
 const boxContainer = document.getElementById("boxContainer");
-const allEpisodes = getAllEpisodes();
+//const allEpisodes = getAllEpisodes();
 let searchContainer = document.getElementById("search");
 const resultsNo = document.createElement("p");
 let dropDown = document.querySelector("select");
@@ -11,10 +10,14 @@ function displaySearchResults(episodeList) {
   searchContainer.appendChild(resultsNo);
 }
 
-function setup() {
-  displaySearchResults(allEpisodes);
-  allEpisodes.forEach((episode) => createBoxEpisode(episode));
-  createSearch();
+async function fetchData() {
+  const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+  const allEpisodes = await response.json();
+
+  allEpisodes.forEach((episode) => createBoxEpisode(episode)); //creates box for each episode
+
+  createSearch(allEpisodes);
+
   createDropDown(allEpisodes);
 }
 
@@ -53,7 +56,7 @@ function createBoxEpisode(episode) {
   containerDiv.appendChild(episodeBrief);
 }
 
-function createSearch() {
+function createSearch(allEpisodes) {
   let searchEpisodes = document.getElementById("searchEpisode");
   searchEpisodes.className = "searchEpisodes";
 
@@ -116,6 +119,10 @@ function createDropDown(allEpisodes) {
         resultsNo.innerHTML = `Got one episode(s)`;
       }
   });
+}
+
+function setup() {
+  fetchData();
 }
 
 window.onload = setup;
