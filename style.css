@@ -65,7 +65,8 @@ footer p {
 }
 
 .searchEpisodes,
-.dropDown {
+.dropDown,
+.dropDownShows {
   border: none;
   font-family: "Quicksand", sans-serif;
   border-radius: 5px;

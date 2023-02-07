@@ -2,7 +2,9 @@ const boxContainer = document.getElementById("boxContainer");
 //const allEpisodes = getAllEpisodes();
 let searchContainer = document.getElementById("search");
 const resultsNo = document.createElement("p");
-let dropDown = document.querySelector("select");
+let dropDown = document.querySelector(".dropDown");
+let dropDownShows = document.querySelector(".dropDownShows");
+let allShows = getAllShows();
 
 function displaySearchResults(episodeList) {
   resultsNo.innerHTML = `Got ${episodeList.length} episode(s)`;
@@ -11,14 +13,14 @@ function displaySearchResults(episodeList) {
 }
 
 async function fetchData() {
-  const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+  const response = await fetch("https://api.tvmaze.com/shows/167/episodes");
   const allEpisodes = await response.json();
 
-  allEpisodes.forEach((episode) => createBoxEpisode(episode)); //creates box for each episode
-
-  createSearch(allEpisodes);
-
+  //I initialize the page when it loads the first time
   createDropDown(allEpisodes);
+  createSearch(allEpisodes);
+  createDropDownShows(allShows);
+  allEpisodes.forEach((episode) => createBoxEpisode(episode)); //creates box for each episode
 }
 
 function createBoxEpisode(episode) {
@@ -119,6 +121,41 @@ function createDropDown(allEpisodes) {
         resultsNo.innerHTML = `Got one episode(s)`;
       }
   });
+}
+
+function createDropDownShows(allShows) {
+  allShows.sort((a, b) => {
+    if (a.name < b.name) return -1;
+    if (a.name > b.name) return 1;
+    return 0;
+  });
+
+  for (let show of allShows) {
+    let option = document.createElement("option");
+    option.innerText = show.name;
+    option.value = show.id;
+    dropDownShows.appendChild(option);
+  }
+
+  dropDownShows.addEventListener("change", () => {
+    let showId = dropDownShows.value;
+    fetchEpisodes(showId);
+  });
+}
+
+async function fetchEpisodes(showId) {
+  const response = await fetch(
+    `https://api.tvmaze.com/shows/${showId}/episodes`
+  );
+  const showEpisodes = await response.json();
+
+  boxContainer.innerHTML = "";
+  showEpisodes.forEach((episode) => createBoxEpisode(episode));
+
+  dropDown.innerHTML = "";
+  createDropDown(showEpisodes);
+
+  createSearch(showEpisodes);
 }
 
 function setup() {
