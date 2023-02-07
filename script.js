@@ -49,7 +49,12 @@ function createBoxEpisode(episode) {
   episodeBrief.className = "brief";
 
   let episodeImg = document.createElement("img");
-  episodeImg.src = episode.image.medium;
+
+  episodeImg.src =
+    episode.image === null
+      ? "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg"
+      : episode.image.medium;
+
   episodeImg.className = "image";
   episodeImg.alt = episode.name;
 
