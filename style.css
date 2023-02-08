@@ -21,6 +21,9 @@ header h1 {
 }
 
 .box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 20%;
   height: auto;
   margin: 2em;
@@ -77,6 +80,11 @@ footer p {
 
 .resultsNo {
   color: grey;
+}
+
+.showDetailsBox {
+  border-top: 2px solid #dbe9ee;
+  font-size: 0.8em;
 }
 
 @media screen and (max-width: 900px) {
