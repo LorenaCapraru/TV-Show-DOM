@@ -1,5 +1,4 @@
 const boxContainer = document.getElementById("boxContainer");
-//const allEpisodes = getAllEpisodes();
 let searchContainer = document.getElementById("search");
 const resultsNo = document.createElement("p");
 let dropDown = document.querySelector(".dropDown");
@@ -12,15 +11,12 @@ function displaySearchResults(episodeList) {
   searchContainer.appendChild(resultsNo);
 }
 
-async function fetchData() {
-  const response = await fetch("https://api.tvmaze.com/shows/167/episodes");
-  const allEpisodes = await response.json();
-
+async function displayShows() {
   //I initialize the page when it loads the first time
-  createDropDown(allEpisodes);
-  createSearch(allEpisodes);
+  dropDown.style.visibility = "hidden";
+  createSearch(allShows);
   createDropDownShows(allShows);
-  allEpisodes.forEach((episode) => createBoxEpisode(episode)); //creates box for each episode
+  allShows.forEach((show) => createBoxShow(show));
 }
 
 function createBoxEpisode(episode) {
@@ -45,15 +41,14 @@ function createBoxEpisode(episode) {
   title.className = "title";
 
   let episodeBrief = document.createElement("p");
-  episodeBrief.innerHTML = episode.summary;
+  episodeBrief.innerHTML = episode.summary ?? "Summary unavailable";
   episodeBrief.className = "brief";
 
   let episodeImg = document.createElement("img");
 
   episodeImg.src =
-    episode.image === null
-      ? "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg"
-      : episode.image.medium;
+    episode.image?.medium ??
+    "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg";
 
   episodeImg.className = "image";
   episodeImg.alt = episode.name;
@@ -61,6 +56,57 @@ function createBoxEpisode(episode) {
   containerDiv.appendChild(title);
   containerDiv.appendChild(episodeImg);
   containerDiv.appendChild(episodeBrief);
+}
+
+function createBoxShow(show) {
+  let containerDiv = document.createElement("div");
+  boxContainer.appendChild(containerDiv);
+  containerDiv.className = "box";
+
+  let showDetailsBox = document.createElement("div");
+  showDetailsBox.className = "showDetailsBox";
+
+  let showSummary = document.createElement("div");
+  showSummary.className = "showSummery";
+
+  let title = document.createElement("h3");
+  title.innerHTML = `${show.name.toUpperCase()}`;
+  title.className = "title";
+
+  let showBrief = document.createElement("p");
+  showBrief.innerHTML = show.summary ?? "Summary unavailable";
+  showBrief.className = "brief";
+
+  let showImg = document.createElement("img");
+  showImg.src =
+    show.image?.medium ??
+    "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg";
+  showImg.className = "image";
+  showImg.alt = show.name;
+
+  let showGenre = document.createElement("p");
+  showGenre.innerHTML = `Genre(s): ${show.genres}`;
+
+  let showStatus = document.createElement("p");
+  showStatus.innerHTML = `Status: ${show.status}`;
+
+  let showRating = document.createElement("p");
+  showRating.innerHTML = `Rating: ${show.rating.average}`;
+
+  let showRuntime = document.createElement("p");
+  showRuntime.innerHTML = `Runtime: ${show.runtime}`;
+
+  showSummary.appendChild(title);
+  showSummary.appendChild(showImg);
+  showSummary.appendChild(showBrief);
+  showDetailsBox.appendChild(showGenre);
+  showDetailsBox.appendChild(showStatus);
+  showDetailsBox.appendChild(showRating);
+  showDetailsBox.appendChild(showRuntime);
+
+  //I created 2 different div's to append the show's detail just to control the flex-box
+  containerDiv.appendChild(showSummary);
+  containerDiv.appendChild(showDetailsBox);
 }
 
 function createSearch(allEpisodes) {
@@ -83,7 +129,7 @@ function createSearch(allEpisodes) {
         );
       })
       .forEach((ep) => {
-        createBoxEpisode(ep);
+        ep.genres ? createBoxShow(ep) : createBoxEpisode(ep);
         listOfSearchedEp.push(ep);
       });
 
@@ -129,6 +175,10 @@ function createDropDown(allEpisodes) {
 }
 
 function createDropDownShows(allShows) {
+  let firstShow = document.createElement("option");
+  firstShow.innerText = "All Shows";
+  dropDownShows.appendChild(firstShow);
+
   allShows.sort((a, b) => {
     if (a.name < b.name) return -1;
     if (a.name > b.name) return 1;
@@ -143,8 +193,17 @@ function createDropDownShows(allShows) {
   }
 
   dropDownShows.addEventListener("change", () => {
-    let showId = dropDownShows.value;
-    fetchEpisodes(showId);
+    if (dropDownShows.value === "All Shows") {
+      boxContainer.innerHTML = "";
+      dropDown.style.visibility = "hidden";
+
+      displayShows();
+    } else {
+      dropDown.style.visibility = "visible";
+      boxContainer.innerHTML = "";
+      let showId = dropDownShows.value;
+      fetchEpisodes(showId);
+    }
   });
 }
 
@@ -164,7 +223,7 @@ async function fetchEpisodes(showId) {
 }
 
 function setup() {
-  fetchData();
+  displayShows();
 }
 
 window.onload = setup;
