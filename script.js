@@ -1,14 +1,13 @@
 const boxContainer = document.getElementById("boxContainer");
 let searchContainer = document.getElementById("search");
-const resultsNo = document.createElement("p");
 let dropDown = document.querySelector(".dropDown");
 let dropDownShows = document.querySelector(".dropDownShows");
 let allShows = getAllShows();
 
 function displaySearchResults(episodeList) {
-  resultsNo.innerHTML = `Got ${episodeList.length} episode(s)`;
+  resultsNo = document.getElementById("resultsNo");
+  resultsNo.innerHTML = `Got ${boxContainer.childElementCount} result(s)`;
   resultsNo.className = "resultsNo";
-  searchContainer.appendChild(resultsNo);
 }
 
 async function displayShows() {
@@ -17,6 +16,7 @@ async function displayShows() {
   createSearch(allShows);
   createDropDownShows(allShows);
   allShows.forEach((show) => createBoxShow(show));
+  displaySearchResults(allShows);
 }
 
 function createBoxEpisode(episode) {
@@ -133,7 +133,7 @@ function createSearch(allEpisodes) {
         listOfSearchedEp.push(ep);
       });
 
-    resultsNo.innerHTML = `Got ${boxContainer.childElementCount} episode(s)`;
+    resultsNo.innerHTML = `Got ${boxContainer.childElementCount} result(s)`;
 
     if (boxContainer.childElementCount === 0) {
       let noFoundElement = document.createElement("h1");
@@ -218,8 +218,8 @@ async function fetchEpisodes(showId) {
 
   dropDown.innerHTML = "";
   createDropDown(showEpisodes);
-
   createSearch(showEpisodes);
+  displaySearchResults(showEpisodes);
 }
 
 function setup() {
